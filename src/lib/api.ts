@@ -1,28 +1,17 @@
 import { Post } from "@/interfaces/post";
-import fs from "fs";
-import matter from "gray-matter";
-import { join } from "path";
 
-const postsDirectory = join(process.cwd(), "_posts");
+const ANDYLILFS_BLOG_BACKEND_API_URL = process.env.ANDYLILFS_BLOG_BACKEND_API_URL;
 
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+export async function getPostById(id: string) {
+  const response = await fetch(`${ANDYLILFS_BLOG_BACKEND_API_URL}/blogs/${id}`, { cache: 'no-store' });
+  const res = await response.json();
+  const post = res as Post;
+  return post;
 }
 
-export function getPostBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return { ...data, slug: realSlug, content } as Post;
-}
-
-export function getAllPosts(): Post[] {
-  const slugs = getPostSlugs();
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+export async function getAllPosts(): Promise<Post[]> {
+  const response = await fetch(`${ANDYLILFS_BLOG_BACKEND_API_URL}/blogs`, { cache: 'no-store' });
+  const res = await response.json();
+  const posts = res as Post[];
   return posts;
 }

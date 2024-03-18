@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/lib/api";
+import { getAllPosts, getPostById } from "@/lib/api";
 import { CMS_NAME } from "@/lib/constants";
 import markdownToHtml from "@/lib/markdownToHtml";
 import Alert from "@/app/_components/alert";
@@ -10,7 +10,7 @@ import { PostBody } from "@/app/_components/post-body";
 import { PostHeader } from "@/app/_components/post-header";
 
 export default async function Post({ params }: Params) {
-  const post = getPostBySlug(params.slug);
+  const post = await getPostById(params.id);
 
   if (!post) {
     return notFound();
@@ -20,14 +20,14 @@ export default async function Post({ params }: Params) {
 
   return (
     <main>
-      <Alert preview={post.preview} />
+      {/* <Alert preview={post.preview} /> */}
       <Container>
         <Header />
         <article className="mb-32">
           <PostHeader
             title={post.title}
             coverImage={post.coverImage}
-            date={post.date}
+            updatedAt={post.updatedAt}
             author={post.author}
           />
           <PostBody content={content} />
@@ -39,12 +39,12 @@ export default async function Post({ params }: Params) {
 
 type Params = {
   params: {
-    slug: string;
+    id: string;
   };
 };
 
-export function generateMetadata({ params }: Params): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const post = await getPostById(params.id);
 
   if (!post) {
     return notFound();
@@ -56,15 +56,15 @@ export function generateMetadata({ params }: Params): Metadata {
     title,
     openGraph: {
       title,
-      images: [post.ogImage.url],
+      images: [post.coverImage],
     },
   };
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slug,
+    id: post.id,
   }));
 }
