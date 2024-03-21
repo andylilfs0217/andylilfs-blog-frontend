@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "./container";
-import { Avatar, Link } from "@mui/material";
+import Link from "next/link";
+import AuthorAvatar from "./author-avatar";
 
 const Navbar = () => {
   const currentPath =
@@ -26,7 +27,7 @@ const Navbar = () => {
           >
             About
           </Link> */}
-          <Avatar alt="User Avatar" src="assets/user-icon.png"></Avatar>
+          <AuthorAvatar picture="assets/user-icon.png"></AuthorAvatar>
         </div>
       </nav>
     </Container>
