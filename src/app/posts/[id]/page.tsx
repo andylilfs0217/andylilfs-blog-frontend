@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPostById } from "@/lib/api";
 import markdownToHtml from "@/lib/markdownToHtml";
 import Container from "@/app/_components/container";
-import Header from "@/app/_components/header";
 import { PostBody } from "@/app/_components/post-body";
 import { PostHeader } from "@/app/_components/post-header";
 import { HOME_OG_IMAGE_URL } from "@/lib/constants";
@@ -19,9 +18,7 @@ export default async function Post({ params }: Params) {
 
   return (
     <main>
-      {/* <Alert preview={post.preview} /> */}
       <Container>
-        <Header />
         <article className="mb-32">
           <PostHeader
             title={post.title}

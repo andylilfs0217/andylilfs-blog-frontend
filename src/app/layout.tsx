@@ -5,8 +5,15 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react"
-
+import { Analytics } from "@vercel/analytics/react";
+import Navbar from "./_components/navbar";
+import Alert from "./_components/alert";
+import {
+  CssBaseline,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material";
+import { theme } from "./_theme/theme";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

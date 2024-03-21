@@ -1,6 +1,6 @@
 import { type Author } from "@/interfaces/author";
 import Link from "next/link";
-import Avatar from "./avatar";
+import AuthorAvatar from "./author-avatar";
 import CoverImage from "./cover-image";
 import DateFormatter from "./date-formatter";
 
@@ -41,7 +41,7 @@ export function PostPreview({
         <DateFormatter dateString={updatedAt} />
       </div>
       <p className="text-lg leading-relaxed mb-4">{subtitle}</p>
-      <Avatar name={author.name} picture={author.picture} />
+      <AuthorAvatar name={author.name} picture={author.picture} />
     </div>
   );
 }
