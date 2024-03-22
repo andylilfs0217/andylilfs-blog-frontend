@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next -p 8080",
+    "dev": "next -p 8081",
     "build": "next build",
-    "start": "next start -p 8080"
+    "start": "next start -p 8081"
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
