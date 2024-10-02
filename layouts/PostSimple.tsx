@@ -8,16 +8,17 @@ import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import { BlogPost } from 'models/blogs'
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: BlogPost
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
 }
 
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
-  const { path, slug, date, title } = content
+  const { id, date, title } = content
 
   return (
     <SectionContainer>
@@ -45,7 +46,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
             </div>
             {siteMetadata.comments && (
               <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
-                <Comments slug={slug} />
+                <Comments slug={id} />
               </div>
             )}
             <footer>
