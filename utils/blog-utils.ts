@@ -1,6 +1,6 @@
 import { BlogPost } from 'models/blogs'
 
-export const POSTS_PER_PAGE = 2
+export const POSTS_PER_PAGE = 5
 
 export function currentPage(id: string, posts: BlogPost[]) {
   const postIndex = posts.findIndex((p) => p.id === id)
